@@ -1,0 +1,60 @@
+{% extends "accounts/layout.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row" style="
+    margin-left: 100px;
+    margin-right: 100px;">
+    <table class="table table-striped">
+      <div class="text-center">
+        <h2>게시판</h2>
+      </div>
+
+      <tr>
+        <th class="text-center">서버</th>
+        <th class="text-center">아이디</th>
+        <th class="text-center">종족</th>
+        <th class="text-center">주력기</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for profiles in profile %}
+
+      <tr>
+          <th class="text-center"><span class="label label-success">{{ profiles.server }}</span></th>
+          <th class="text-center"><span class="label label-info">{{ profiles.userid }}</span></th>
+          <th class="text-center"><span class="label label-warning">{{ profiles.race }}</span></th>
+          <th class="text-center"><span class="label label-success">{{ profiles.skill }}</span></th>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+    </table>
+    <div class="text-center">
+      <ul class="pagination">
+
+        {% if profile.has_previous %}
+            <li><a href="?page={{ profile.previous_page_number }}">뒤로</a></li>
+        {% endif %}
+
+        <li><span class="current">
+            페이지 {{ profile.number }} of {{ profile.paginator.num_pages }}
+        </span></li>
+
+        {% if profile.has_next %}
+            <li><a href="?page={{ profile.next_page_number }}">앞으로</a></li>
+        {% endif %}
+      </ul>
+      <form class="navbar-form navbar"  method="get">
+        <div class="form-group">
+          <input type="text" name="q" value="{{ q }}" />
+          <input type="submit" value="검색" class="btn btn-primary"/>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'blog/base.html' %}
+{% load imagekit %}
+
+{% block content %}
+  {% if post.author == request.user %}
+<div class="container">
+    <div class="row" style="
+      margin-left: 100px;
+      margin-right: 100px;">
+      <div style="position: relative;
+                 background: #fbfbfb;">
+        <div class="w_top_left" style="border: 1px solid;
+                                       border-radius: 4px;
+                                       background: #dddddd;">
+              <dl class="wt_subject">
+                <dt>제 목 :  {{ post.title }}</dt>
+              </dl>
+              <dl class="wt_subject">
+                <dt>글쓴이 :    {{ post.author }}</dt>
+                <div class="w_top_left" style="
+                                      border-radius: 4px;
+                                      background: #dddddd;">
+              </dl>
+        </div>
+      </div>
+      <hr>
+
+        <div class="row">
+          <p>{{ post.content }}</p>
+          {% if post.image %}
+          <img class="img-responsive img-rounded" src="{{post.image.url}}" style="max_length: 100%;" />
+          {% endif %}
+        </div>
+      </div>
+      <hr>
+      <div class="row"  style="
+        margin-left: 100px;
+        margin-right: 100px;
+        ">
+
+        <a style="float: right;" class="btn btn-default" href="{% url "blog:post_delete" pk=post.pk %}">
+        <span class="glyphicon glyphicon-trash"> 삭제</span></a>
+        <a style="float: right;" class="btn btn-default" href="{% url "blog:post_edit" pk=post.pk %}">
+        <span class="glyphicon glyphicon-pencil"> 수정</span></a>
+
+      </div>
+      <hr>
+      <div class="row"  style="
+        margin-left: 100px;
+        margin-right: 100px;">
+
+      {% load disqus_tags %}
+
+      {% disqus_show_comments %}
+
+      </div>
+      </ul>
+      <hr>
+
+
+</div>
+  {% endif %}
+{% endblock %}

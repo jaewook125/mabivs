@@ -1,0 +1,58 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row" style="
+    margin-left: 100px;
+    margin-right: 100px;">
+    <table class="table table-striped">
+      <div class="text-center">
+        <h2 style="background-color: #e3f2fd;">게시판</h2>
+      </div>
+      <tr>
+        <th>번호</th>
+        <th class="text-center">제목</th>
+        <th class="text-center">작성자</th>
+        <th class="text-center">날짜</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for posts in post %}
+
+      <tr style="width: 60px;">
+          <th style="width: 66px;">{{ posts.id }}</th>
+          <th class="text-center"><a href="{% url "blog:post_detail" pk=posts.pk %}">{{ posts.title }}</a></th>
+          <th style="width: 60px;">{{ posts.author }}</th>
+          <th style="width: 100px;">{{ posts.created_at|date:"Y-m-d"  }}</th>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+    </table>
+    <hr>
+    <form class="navbar-form navbar"  method="get">
+      <div class="form-group">
+        <input type="text" name="q" value="{{ q }}" />
+        <input type="submit" value="검색" class="btn btn-primary"/>
+      </div>
+    </form>
+    <div class="text-center">
+      <ul class="pagination">
+
+        {% if post.has_previous %}
+            <li><a href="?page={{ post.previous_page_number }}">뒤로</a></li>
+        {% endif %}
+
+        <li><span class="current">
+            페이지 {{ post.number }} of {{ post.paginator.num_pages }}
+        </span></li>
+
+        {% if post.has_next %}
+            <li><a href="?page={{ post.next_page_number }}">앞으로</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

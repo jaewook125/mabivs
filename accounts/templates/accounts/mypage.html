@@ -1,0 +1,78 @@
+{% extends "accounts/layout.html" %}
+
+{% block content %}
+<div class="container" style="background: #fbfbfb;">
+
+<div class="text-center">
+  <h2>마이페이지</h2>
+</div>
+
+<div class="col-xs-12 col-sm-4 col-sm-offset-4" style="background: #dddddd;
+                                                       border: 1px solid;
+                                                       border-radius: 4px;">
+	<div>
+		<p>작성자 아이디 :  {{ request.user.username }}</p>
+
+	</div>
+
+	<form action="{% url "accounts:mypage" %}" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+	{% csrf_token %}
+	  <div class="form-group">
+	    <label for="userid">닉네임</label>
+		{{mypageform.userid}}
+	  </div>
+    <div class="form-group">
+	    <label for="server">서버 선택</label>
+		{{mypageform.server}}
+	  </div>
+    <div class="form-group">
+	    <label for="race">종족 선택</label>
+		{{mypageform.race}}
+	  </div>
+	  <div class="form-group">
+	    <label for="skill">주력기</label>
+      <ul id="id_skill" class="form-select">
+      <li><label for="id_skill_0"><input type="radio" name="skill" value="근접 전투" class="form-select" id="id_skill_0" checked="">
+   <img src="/media/Icon/근접전투.png"></label>
+
+  </li>
+      <li><label for="id_skill_1"><input type="radio" name="skill" value="랜스" class="form-select" id="id_skill_1">
+   <img src="/media/Icon/랜스.png"></label>
+
+  </li>
+      <li><label for="id_skill_2"><input type="radio" name="skill" value="궁술" class="form-select" id="id_skill_2">
+   <img src="/media/Icon/궁술.png"></label>
+
+  </li>
+      <li><label for="id_skill_3"><input type="radio" name="skill" value="마법" class="form-select" id="id_skill_3">
+   <img src="/media/Icon/마법.png"></label>
+
+  </li>
+      <li><label for="id_skill_4"><input type="radio" name="skill" value="격투술" class="form-select" id="id_skill_4">
+   <img src="/media/Icon/격투기.png"></label>
+
+  </li>
+      <li><label for="id_skill_5"><input type="radio" name="skill" value="연금술" class="form-select" id="id_skill_5">
+   <img src="/media/Icon/연금술.png"></label>
+
+  </li>
+      <li><label for="id_skill_6"><input type="radio" name="skill" value="올라운더" class="form-select" id="id_skill_6">
+   <img src="/media/Icon/올라운더.png"></label>
+
+  </li>
+  </ul>
+	  </div>
+	  <div class="form-group">
+	    <label for="context">자기소개</label>
+		{{mypageform.context}}
+	  </div>
+    <!-- <div class="form-group">
+	    <label for="image">이미지 첨부</label>
+		{{mypageform.image}}
+	  </div> -->
+<button type="submit" class="btn btn-default">확인!</button>
+	</form>
+
+</div>
+</div>
+{% endblock %}
