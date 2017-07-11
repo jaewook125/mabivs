@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post, Tag
+from blog.models import Post, Tag, Notice
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -25,6 +25,10 @@ class PostAdmin(admin.ModelAdmin):
 #         qs = super().get_queryset(request)
 #         return qs.select_related('post')
 
+
+@admin.register(Notice)
+class NoticeAdmin(admin.ModelAdmin):
+    list_display = ['id', 'author', 'title', 'content' ,'image', 'created_at','updated_at']
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):

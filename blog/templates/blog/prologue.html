@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="text-center">
+  <legend style="background-color: #e3f2fd;">소개글</legend>
+  <p>
+    이 홈페이지는 무슨무슨 기능을하고 뭘 합니다
+  </p>
+  <p>
+    이미지 클릭시 이동
+
+  </p>
+  <p>
+    <a href="{% url "blog:post_list"%}" ><img
+    src="https://vignette3.wikia.nocookie.net/mabinogi/images/5/57/Symbol_C.png/revision/latest?cb=20080914154805&path-prefix=ko" />
+  </p></a>
+</div>
+{% endblock %}

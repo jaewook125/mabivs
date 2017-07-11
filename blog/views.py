@@ -1,9 +1,13 @@
-from blog.models import Post
+from blog.models import Post, Notice
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+def prologue(request):
+    return render(request, 'blog/prologue.html', {})
 
 
 def post_list(request):
@@ -75,6 +79,33 @@ def post_delete(request, pk):
     post.delete()
     messages.success(request, '포스팅을 삭제 했습니다.')
     return render(request, 'blog/post_delete.html', {'post': post})
+
+def notice_list(request):
+    qs = Notice.objects.all().order_by('-id')
+
+    q = request.GET.get('q', '')
+    if q:
+        qs = qs.filter(title__icontains=q)
+
+    paginator = Paginator(qs, 10)
+    page = request.GET.get('page')
+    try:
+        notice = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        notice = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        notice = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/notice_list.html',{
+        'notice_list' : qs,
+        'notice' : notice,
+    })
+
+def notice_view(request, pk):
+    notice = get_object_or_404(Notice, pk=pk)
+    return render(request, 'blog/notice_view.html', {'notice': notice})
 
 
 # def comment_list(request):
