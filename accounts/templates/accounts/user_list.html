@@ -3,11 +3,11 @@
 {% block content %}
 <div class="container">
   <div class="row" style="
-    margin-left: 100px;
-    margin-right: 100px;">
+    margin-left: 10px;
+    margin-right: 10px;">
     <table class="table table-striped">
       <div class="text-center">
-        <h2>게시판</h2>
+        <legend>유저 목록</legend>
       </div>
 
       <tr>
@@ -22,9 +22,9 @@
 
       <tr>
           <th class="text-center"><span class="label label-success">{{ profiles.server }}</span></th>
-          <th class="text-center"><span class="label label-info">{{ profiles.userid }}</span></th>
+          <th class="text-center">{{ profiles.userid }}</th>
           <th class="text-center"><span class="label label-warning">{{ profiles.race }}</span></th>
-          <th class="text-center"><span class="label label-success">{{ profiles.skill }}</span></th>
+          <th class="text-center"><span class="label label-info">{{ profiles.skill }}</span></th>
       </tr>
 
       {% endfor %}

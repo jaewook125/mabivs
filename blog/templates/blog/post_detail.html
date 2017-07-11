@@ -2,11 +2,10 @@
 {% load imagekit %}
 
 {% block content %}
-  {% if post.author == request.user %}
 <div class="container">
     <div class="row" style="
-      margin-left: 100px;
-      margin-right: 100px;">
+      margin-left: 10px;
+      margin-right: 10px;">
       <div style="position: relative;
                  background: #fbfbfb;">
         <div class="w_top_left" style="border: 1px solid;
@@ -34,8 +33,8 @@
       </div>
       <hr>
       <div class="row"  style="
-        margin-left: 100px;
-        margin-right: 100px;
+        margin-left: 10px;
+        margin-right: 10px;
         ">
 
         <a style="float: right;" class="btn btn-default" href="{% url "blog:post_delete" pk=post.pk %}">
@@ -46,8 +45,8 @@
       </div>
       <hr>
       <div class="row"  style="
-        margin-left: 100px;
-        margin-right: 100px;">
+        margin-left: 10px;
+        margin-right: 10px;">
 
       {% load disqus_tags %}
 
@@ -59,5 +58,4 @@
 
 
 </div>
-  {% endif %}
 {% endblock %}

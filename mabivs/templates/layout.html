@@ -89,10 +89,14 @@
     </div>
     {% endif %}
 
-
+{% if user.is_authenticated %}
     {% block content %}
     {% endblock %}
-
+{% else %}
+<div class="text-center">
+  회원가입시 이용 가능합니다.
+</div>
+{% endif %}
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
