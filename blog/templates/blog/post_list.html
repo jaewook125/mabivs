@@ -14,19 +14,15 @@
         <th>번호</th>
         <th class="text-center">제목</th>
         <th class="text-center">작성자</th>
-        <th class="text-center">날짜</th>
       </tr>
     </thead>
     <tbody>
       {% for posts in post %}
-
       <tr style="width: 60px;">
           <th style="width: 66px;">{{ posts.id }}</th>
           <th class="text-center"><a href="{% url "blog:post_detail" pk=posts.pk %}">{{ posts.title }}</a></th>
-          <th style="width: 60px;">{{ posts.author }}</th>
-          <th style="width: 100px;">{{ posts.created_at|date:"Y-m-d"  }}</th>
+          <th style="width: 60px;"><small>{{ posts.author }}</small></th>
       </tr>
-
       {% endfor %}
     </tbody>
     </table>

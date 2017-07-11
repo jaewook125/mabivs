@@ -8,8 +8,10 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.views import login as default_login_view
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def user_list(request):
     qs = Profile.objects.all().prefetch_related()
@@ -52,7 +54,6 @@ def mypage(request):
 			user=request.user
 			user.save()
 			messages.success(request, '마이페이지가 작성됐습니다. 유저 목록을 확인해주세요.')
-			message = 'updated'
 		else:
 			message = mypageform.errors
 	user=User.objects.get(id=request.user.id)
@@ -71,25 +72,25 @@ def mypage(request):
 
 
 def signup(request):
-	if request.method=="POST":
-		userform = SignupForm(request.POST)
-		if userform.is_valid():
-    			user = userform.save(commit=False)
-    			user.username = userform.cleaned_data['username']
-    			user.save()
-    			profile = Profile(user=user)
-    			profile.save()
-    			messages.success(request, '회원가입을 완료했습니다.\n 로그인 해주세요.')
-
-		return render(request, "accounts/signup_form.html", {
-			'userform': userform,
-			'message':'입력정보를 정확히 확인해주세요.',
+    if request.method=="POST":
+        userform = SignupForm(request.POST)
+        if userform.is_valid():
+            user=userform.save(commit=False)
+            user.username = userform.cleaned_data['username']
+            user.save()
+            profile = Profile(user=user)
+            profile.save()
+            messages.success(request, '회원가입을 완료했습니다.\n 로그인 해주세요.')
+            return HttpResponseRedirect(reverse("signup_ok"))
+        return render(request, "accounts/signup_form.html", {
+            'userform': userform,
+            'message':'입력정보를 정확히 확인해주세요.',
 		})
-	elif request.method=="GET":
-		userform = SignupForm()
-		return render(request, "accounts/signup_form.html", {
-			'userform':userform,
-			'message':'첫 화면',
+    elif request.method=="GET":
+        userform = SignupForm()
+        return render(request, "accounts/signup_form.html", {
+            'userform':userform,
+            'message':'회원가입 후 마이페이지에 정보 입력시 자동으로 유저리스트에 올라갑니다.',
 		})
 
 # @login_required

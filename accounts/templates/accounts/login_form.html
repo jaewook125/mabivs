@@ -1,6 +1,8 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
+
+{% if not user.authenticated %}
 <form action="" method="post" class="form-horizontal">
 <legend>로그인</legend>
 {% csrf_token %}
@@ -41,5 +43,5 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
-
+{% endif %}
 {% endblock %}

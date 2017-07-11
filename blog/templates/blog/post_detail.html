@@ -6,22 +6,19 @@
     <div class="row" style="
       margin-left: 10px;
       margin-right: 10px;">
-      <div style="position: relative;
-                 background: #fbfbfb;">
-        <div class="w_top_left" style="border: 1px solid;
-                                       border-radius: 4px;
-                                       background: #dddddd;">
-              <dl class="wt_subject">
-                <dt>제 목 :  {{ post.title }}</dt>
-              </dl>
-              <dl class="wt_subject">
-                <dt>글쓴이 :    {{ post.author }}</dt>
-                <div class="w_top_left" style="
-                                      border-radius: 4px;
-                                      background: #dddddd;">
-              </dl>
-        </div>
-      </div>
+      <div class="header">
+        <ul style="margin: 0;
+                   padding: 0;
+                   overflow: hidden;
+                   background-color: #FFDAB9;">
+          <li style="float: right;
+                     overflow: hidden;">
+            {{ post.created_at| date:'Y-m-d' }}
+          </li>
+        <li>작성자 : {{ post.author }}</li>
+        <li>제목 : {{ post.title }}</li>
+        </ul>
+     </div>
       <hr>
 
         <div class="row">
