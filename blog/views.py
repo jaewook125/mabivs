@@ -18,7 +18,7 @@ def post_list(request):
         qs = qs.filter(title__icontains=q)
 
     paginator = Paginator(qs, 10)
-    page = request.GET.get('page')
+    page = request.GET.get('page',1)
     try:
         post = paginator.page(page)
     except PageNotAnInteger:
@@ -88,7 +88,7 @@ def notice_list(request):
         qs = qs.filter(title__icontains=q)
 
     paginator = Paginator(qs, 10)
-    page = request.GET.get('page')
+    page = request.GET.get('page',1)
     try:
         notice = paginator.page(page)
     except PageNotAnInteger:

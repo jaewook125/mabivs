@@ -31,20 +31,27 @@
     </tbody>
     </table>
     <div class="text-center">
-      <ul class="pagination">
-
-        {% if profile.has_previous %}
-            <li><a href="?page={{ profile.previous_page_number }}">뒤로</a></li>
-        {% endif %}
-
-        <li><span class="current">
-            페이지 {{ profile.number }} of {{ profile.paginator.num_pages }}
-        </span></li>
-
-        {% if profile.has_next %}
-            <li><a href="?page={{ profile.next_page_number }}">앞으로</a></li>
-        {% endif %}
-      </ul>
+      {% if profile.has_other_pages %}
+        <ul class="pagination">
+          {% if profile.has_previous %}
+            <li><a href="?page={{ profile.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in profile.paginator.page_range %}
+            {% if profile.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if profile.has_next %}
+            <li><a href="?page={{ profile.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
       <form class="navbar-form navbar"  method="get">
         <div class="form-group">
           <input type="text" name="q" value="{{ q }}" />

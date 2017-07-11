@@ -19,7 +19,7 @@ def user_list(request):
         qs = qs.filter(server__icontains=q)
 
     paginator = Paginator(qs, 10)
-    page = request.GET.get('page')
+    page = request.GET.get('page',1)
     try:
         profile = paginator.page(page)
     except PageNotAnInteger:
@@ -74,12 +74,13 @@ def signup(request):
 	if request.method=="POST":
 		userform = SignupForm(request.POST)
 		if userform.is_valid():
-			user = userform.save(commit=False)
-			user.username = userform.cleaned_data['username']
-			user.save()
-			profile = Profile(user=user)
-			profile.save()
-			messages.success(request, '회원가입을 완료했습니다.\n 로그인 해주세요.')
+    			user = userform.save(commit=False)
+    			user.username = userform.cleaned_data['username']
+    			user.save()
+    			profile = Profile(user=user)
+    			profile.save()
+    			messages.success(request, '회원가입을 완료했습니다.\n 로그인 해주세요.')
+
 		return render(request, "accounts/signup_form.html", {
 			'userform': userform,
 			'message':'입력정보를 정확히 확인해주세요.',
@@ -91,8 +92,8 @@ def signup(request):
 			'message':'첫 화면',
 		})
 
-@login_required
-def profile(request):
-    return render(request, 'accounts/mypage.html')
+# @login_required
+# def profile(request):
+#     return render(request, 'accounts/mypage.html')
 #특정 뷰가 호출될때 로그아웃 상황이 아닌
 #로그인상황에서만 호출이 되도록 강제시킬려면 장식자를 사용 @login_required

@@ -32,20 +32,27 @@
     </table>
     <hr>
     <div class="text-center">
-      <ul class="pagination">
-
-        {% if notice.has_previous %}
-            <li><a href="?page={{ notice.previous_page_number }}">뒤로</a></li>
-        {% endif %}
-
-        <li><span class="current">
-            페이지 {{ notice.number }} of {{ notice.paginator.num_pages }}
-        </span></li>
-
-        {% if notice.has_next %}
-            <li><a href="?page={{ notice.next_page_number }}">앞으로</a></li>
-        {% endif %}
-      </ul>
+      {% if notice.has_other_pages %}
+        <ul class="pagination">
+          {% if notice.has_previous %}
+            <li><a href="?page={{ notice.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in notice.paginator.page_range %}
+            {% if notice.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if notice.has_next %}
+            <li><a href="?page={{ notice.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
 
     </div>
     <div class="text-center">
