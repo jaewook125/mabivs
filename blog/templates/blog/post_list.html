@@ -9,6 +9,7 @@
       <div class="text-center">
         <legend style="background-color: #e3f2fd;">게시판</legend>
       </div>
+      {% if user.is_authenticated %}
       <tr>
         <th>번호</th>
         <th class="text-center">제목</th>
@@ -54,5 +55,10 @@
 
     </div>
   </div>
+  {% else %}
+  <div class="text-center">
+    회원가입시 이용 가능합니다.
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

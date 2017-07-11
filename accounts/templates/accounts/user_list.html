@@ -9,7 +9,7 @@
       <div class="text-center">
         <legend>유저 목록</legend>
       </div>
-
+      {% if user.is_authenticated %}
       <tr>
         <th class="text-center">서버</th>
         <th class="text-center">아이디</th>
@@ -52,6 +52,11 @@
         </div>
       </form>
     </div>
+    {% else %}
+    <div class="text-center">
+      회원가입시 이용 가능합니다.
+    </div>
+    {% endif %}
   </div>
 </div>
 <script>
