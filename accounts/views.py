@@ -17,7 +17,7 @@ def user_list(request):
     q = request.GET.get('q', '')
     if q:
         qs = qs.filter(server__icontains=q)
-        
+
     paginator = Paginator(qs, 10)
     page = request.GET.get('page')
     try:

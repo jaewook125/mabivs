@@ -7,13 +7,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def post_list(request):
-    qs = Post.objects.all().prefetch_related('tag_set')
+    qs = Post.objects.all().order_by('-id').prefetch_related('tag_set')
 
     q = request.GET.get('q', '')
     if q:
         qs = qs.filter(title__icontains=q)
 
-    paginator = Paginator(qs, 5)
+    paginator = Paginator(qs, 10)
     page = request.GET.get('page')
     try:
         post = paginator.page(page)
