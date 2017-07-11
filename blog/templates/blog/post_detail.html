@@ -10,10 +10,10 @@
         <ul style="margin: 0;
                    padding: 0;
                    overflow: hidden;
-                   background-color: #FFDAB9;">
+                   background-color: #F3F781">
           <li style="float: right;
                      overflow: hidden;">
-            {{ post.created_at| date:'Y-m-d' }}
+            {{ post.created_at| date:'Y-m-d g:i a' }}
           </li>
         <li>작성자 : {{ post.author }}</li>
         <li>제목 : {{ post.title }}</li>

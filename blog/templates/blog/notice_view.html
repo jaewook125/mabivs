@@ -7,19 +7,17 @@
       margin-right: 10px;">
       <div style="position: relative;
                  background: #fbfbfb;">
-        <div class="w_top_left" style="border: 1px solid;
-                                       border-radius: 4px;
-                                       background: #dddddd;">
-              <dl class="wt_subject">
-                <dt>제 목 :  {{ notice.title }}</dt>
-              </dl>
-              <dl class="wt_subject">
-                <dt>글쓴이 :    {{ notice.author }}</dt>
-                <div class="w_top_left" style="
-                                      border-radius: 4px;
-                                      background: #dddddd;">
-              </dl>
-        </div>
+                 <ul style="margin: 0;
+                            padding: 0;
+                            overflow: hidden;
+                            background-color: #FFDAB9;">
+                   <li style="float: right;
+                              overflow: hidden;">
+                     {{ notice.created_at| date:'Y-m-d g:i a' }}
+                   </li>
+                 <li>작성자 : {{ notice.author }}</li>
+                 <li>제목 : {{ notice.title }}</li>
+                 </ul>
       </div>
       <hr>
 
