@@ -4,7 +4,9 @@
 {% block content %}
 {% if not user.authenticated %}
 <form action="" method="post">
+<div class="text-center">
 <legend>회원가입!</legend>
+</div>
 <p class="text-center">{{ message }}</p>
 {% csrf_token %}
 <div class="container">

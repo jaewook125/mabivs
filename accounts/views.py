@@ -1,4 +1,4 @@
-
+from django.conf import settings
 from django.shortcuts import render, redirect
 from accounts.forms import SignupForm, MypageForm
 from accounts.models import Profile
@@ -72,16 +72,17 @@ def mypage(request):
 
 
 def signup(request):
+    if request.user.is_authenticated:
+        messages.warning(request, '이미 로그인 하셨습니다.')
+        return render(request, "accounts/mypage.html")
     if request.method=="POST":
         userform = SignupForm(request.POST)
         if userform.is_valid():
             user=userform.save(commit=False)
             user.username = userform.cleaned_data['username']
             user.save()
-            profile = Profile(user=user)
-            profile.save()
             messages.success(request, '회원가입을 완료했습니다.\n 로그인 해주세요.')
-            return HttpResponseRedirect(reverse("signup_ok"))
+            return redirect(settings.LOGIN_URL)
         return render(request, "accounts/signup_form.html", {
             'userform': userform,
             'message':'입력정보를 정확히 확인해주세요.',

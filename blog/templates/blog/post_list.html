@@ -7,7 +7,7 @@
     margin-right: 10px;">
     <table class="table table-striped">
       <div class="text-center">
-        <legend style="background-color: #F3F781;">게시판</legend>
+        <legend style="background-color: #3b5998; color: #FFFFFF;">게시판</legend>
       </div>
       {% if user.is_authenticated %}
       <tr>
@@ -27,8 +27,8 @@
     </tbody>
     </table>
     <hr>
-    <a style="float: right; background-color: #F3F781;" class="btn btn-default" href="{% url "blog:post_new" %}">
-    <span class="glyphicon glyphicon-pencil"> 작성</span></a>
+    <a style="float: right; background-color: #3b5998;" class="btn btn-default" href="{% url "blog:post_new" %}">
+    <span style="color: #FFFFFF;" class="glyphicon glyphicon-pencil"> 작성</span></a>
     <div class="text-center">
 
 {% if post.has_other_pages %}
