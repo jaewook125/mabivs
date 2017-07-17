@@ -34,5 +34,6 @@ class Profile(models.Model):
     context = models.CharField(max_length=300, blank=True)
     image = ProcessedImageField(blank=True,
             processors=[Thumbnail(350, 350)],
+            upload_to='userimage/%Y/%m/%d',
             format='JPEG',
             options={'quality': 80})

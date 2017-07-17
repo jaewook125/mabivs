@@ -43,34 +43,35 @@ def user_view(request, pk):
 
 @login_required
 def mypage(request):
-	message='get method'
-	if request.method == "POST":
-		test='post'
-		mypageform=MypageForm(request.POST)
-		if mypageform.is_valid():
-			profile = Profile.objects.get(user=request.user)
-			profile.userid = mypageform.cleaned_data['userid']
-			profile.skill = mypageform.cleaned_data['skill']
-			profile.context = mypageform.cleaned_data['context']
-			profile.server = mypageform.cleaned_data['server']
-			profile.race = mypageform.cleaned_data['race']
-			profile.save()
-			user=request.user
-			user.save()
-			messages.success(request, '마이페이지가 작성됐습니다. 유저 목록을 확인해주세요.')
-		else:
-			message = mypageform.errors
-	user=User.objects.get(id=request.user.id)
+    message='get method'
+    if request.method == "POST":
+        test='post'
+        mypageform=MypageForm(request.POST, request.FILES)
+        if mypageform.is_valid():
+            profile = Profile.objects.get(user=request.user)
+            profile.userid = mypageform.cleaned_data['userid']
+            profile.skill = mypageform.cleaned_data['skill']
+            profile.context = mypageform.cleaned_data['context']
+            profile.server = mypageform.cleaned_data['server']
+            profile.race = mypageform.cleaned_data['race']
+            profile.image = mypageform.cleaned_data['image']
+            profile.save()
+            user=request.user
+            user.save()
+            messages.success(request, '마이페이지가 작성됐습니다. 유저 목록을 확인해주세요.')
+        else:
+            message = mypageform.errors
+    user=User.objects.get(id=request.user.id)
 	#프로필 있는지 확인 없으면생성
-	try:
-		profile=Profile.objects.get(user=request.user)
-	except:
-		new_profile=Profile(user=request.user)
-		new_profile.save()
-	mypageform = MypageForm({'userid':user.profile.userid,'skill':user.profile.skill,
+    try:
+        profile=Profile.objects.get(user=request.user)
+    except:
+        new_profile=Profile(user=request.user)
+        new_profile.save()
+    mypageform = MypageForm({'userid':user.profile.userid,'skill':user.profile.skill,
 							'context':user.profile.context,'server':user.profile.server,
-							'race':user.profile.race})
-	return render(request,"accounts/mypage.html", {
+							'race':user.profile.race,'image':user.profile.image})
+    return render(request,"accounts/mypage.html", {
 			'message':message, 'mypageform':mypageform
 	})
 

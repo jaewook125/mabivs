@@ -80,7 +80,8 @@ class MypageForm(forms.Form):
 	skill = forms.ChoiceField(required=False, choices=SKILL_CHOICES,widget=forms.RadioSelect(attrs={
 		'class':'form-select',
 	}))
-	context = forms.CharField(required=False, widget=forms.TextInput(attrs={
+	context = forms.CharField(required=False, widget=forms.Textarea(attrs={
 		'class':'form-control',
 		'placeholder': 'pvp 초보입니다!',
 	}))
+	image = forms.ImageField()

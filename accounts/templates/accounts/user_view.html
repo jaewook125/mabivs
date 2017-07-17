@@ -1,34 +1,66 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
-<div class="container" style="background: #fbfbfb;">
-
-<div class="text-center">
-  <h2>유저 상세 정보</h2>
-  <p>
-    다른 사람의 정보입니다. 원한다면 친구 추가 후 PVP해보세요~
-  </p>
-</div>
-
-<div class="col-xs-12 col-sm-4 col-sm-offset-4" style="background: #DCDCDC;
-                                                       border: 1px solid;
-                                                       border-radius: 4px;">
-	  <div class="text-center">
-		서버 : {{profile.server}}
-	  </div>
+<div class="container-fluid" style="background: #fbfbfb;">
+  <div class="row-fluid">
     <div class="text-center">
-		아이디 : {{profile.userid}}
-	  </div>
-    <div class="text-center">
-		종족 : {{profile.race}}
-	  </div>
-    <div class="text-center">
-		주력기 : {{profile.skill}}
-	  </div>
-    <div class="text-center">
-		자기소개 : {{profile.context}}
-	  </div>
+      <h2>유저 상세 정보</h2>
+      <p>
+        다른 사람의 정보입니다. 원한다면 친구 추가 후 PVP해보세요~
+      </p>
+    </div>
     <hr />
-</div>
+    <div class="span2">
+      <div class="text-center">
+
+      <ul style="padding-left: 0px;">
+        <li style="overflow: hidden;">서버 : {{profile.server}}</li>
+        <li style="overflow: hidden;">아이디 : {{profile.userid}}</li>
+        <li style="overflow: hidden;">종족 : {{profile.race}}</li>
+        <li style="overflow: hidden;">주력기 : {{profile.skill}}</li>
+      </ul>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">유저 사진보기</button>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{profile.userid}}님의 사진</h4>
+          </div>
+          <div class="modal-body">
+            {% if profile.image %}
+            <img class="img-responsive img-rounded" src="{{profile.image.url}}" style="max_length: 100%;" />
+            {% else %}
+            <p>
+              음.. 사진이 없군요
+            </p>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+    </div>
+    <div class="span8" style="background: #fbfbfb;">
+
+    <div class="text-center">
+		<h3>자기소개</h3>
+    <p>
+      {{profile.context}}
+    </p>
+	  </div>
+  </div>
+
+
+<hr />
+  </div>
 </div>
 {% endblock %}

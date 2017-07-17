@@ -15,6 +15,7 @@ class Post(models.Model):
     tag_set = models.ManyToManyField('Tag', blank=True)
     image = ProcessedImageField(blank=True,
             processors=[Thumbnail(1920, 1080)],
+            upload_to='blogimage/%Y/%m/%d',
             format='JPEG',
             options={'quality': 80})
     created_at = models.DateTimeField(auto_now_add=True)
