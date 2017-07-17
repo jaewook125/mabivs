@@ -1,0 +1,34 @@
+{% extends "accounts/layout.html" %}
+
+{% block content %}
+<div class="container" style="background: #fbfbfb;">
+
+<div class="text-center">
+  <h2>유저 상세 정보</h2>
+  <p>
+    다른 사람의 정보입니다. 원한다면 친구 추가 후 PVP해보세요~
+  </p>
+</div>
+
+<div class="col-xs-12 col-sm-4 col-sm-offset-4" style="background: #DCDCDC;
+                                                       border: 1px solid;
+                                                       border-radius: 4px;">
+	  <div class="text-center">
+		서버 : {{profile.server}}
+	  </div>
+    <div class="text-center">
+		아이디 : {{profile.userid}}
+	  </div>
+    <div class="text-center">
+		종족 : {{profile.race}}
+	  </div>
+    <div class="text-center">
+		주력기 : {{profile.skill}}
+	  </div>
+    <div class="text-center">
+		자기소개 : {{profile.context}}
+	  </div>
+    <hr />
+</div>
+</div>
+{% endblock %}

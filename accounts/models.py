@@ -30,7 +30,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     userid = models.CharField(max_length=20)
     race = models.CharField(max_length=4, choices=RACE_CHOICES)
-    skill = models.CharField(max_length=10, choices=SKILL_CHOICES)
+    skill = models.CharField(max_length=50, choices=SKILL_CHOICES)
     context = models.CharField(max_length=300, blank=True)
     image = ProcessedImageField(blank=True,
             processors=[Thumbnail(350, 350)],

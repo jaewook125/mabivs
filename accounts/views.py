@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from accounts.forms import SignupForm, MypageForm
 from accounts.models import Profile
 
@@ -36,6 +36,10 @@ def user_list(request):
         'user_list' : qs,
         'profile' : profile,
     })
+
+def user_view(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    return render(request, 'accounts/user_view.html', {'profile': profile})
 
 @login_required
 def mypage(request):

@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^signup_ok/', TemplateView.as_view(template_name='accounts/signup_ok.html'), name='signup_ok'),
     url(r'^mypage/', views.mypage, name='mypage'),
     url(r'^user_list/', views.user_list, name='user_list'),
+    url(r'^user_view/(?P<pk>\d+)/$', views.user_view, name='user_view'),
 ]

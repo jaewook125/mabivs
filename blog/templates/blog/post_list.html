@@ -11,17 +11,17 @@
       </div>
       {% if user.is_authenticated %}
       <tr>
-        <th>번호</th>
+        <th class="text-center">번호</th>
         <th class="text-center">제목</th>
         <th class="text-center">작성자</th>
       </tr>
     </thead>
     <tbody>
       {% for posts in post %}
-      <tr style="width: 60px;">
-          <th style="width: 66px;">{{ posts.id }}</th>
+      <tr style="width: 100px;">
+          <th class="text-center" style="width: 66px;">{{ posts.id }}</th>
           <th class="text-center"><a href="{% url "blog:post_detail" pk=posts.pk %}">{{ posts.title }}</a></th>
-          <th style="width: 60px;"><small>{{ posts.author }}</small></th>
+          <th class="text-center" style="width: 100px;"><small>{{ posts.author }}</small></th>
       </tr>
       {% endfor %}
     </tbody>
@@ -57,7 +57,7 @@
     <div class="text-center">
     <form class="navbar-form navbar"  method="get">
       <div class="form-group">
-        <input type="text" name="q" value="{{ q }}" />
+        <input placeholder="게시물 검색" type="text" name="q" value="{{ q }}" />
         <input type="submit" value="검색" class="btn btn-primary"/>
       </div>
     </form>

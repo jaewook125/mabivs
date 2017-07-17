@@ -22,7 +22,7 @@
 
       <tr>
           <th class="text-center"><span class="label label-success">{{ profiles.server }}</span></th>
-          <th class="text-center">{{ profiles.userid }}</th>
+          <th class="text-center"><a href="{% url "accounts:user_view" pk=profiles.pk %}">{{ profiles.userid }}</a></th>
           <th class="text-center"><span class="label label-warning">{{ profiles.race }}</span></th>
           <th class="text-center"><span class="label label-info">{{ profiles.skill }}</span></th>
       </tr>
@@ -54,7 +54,7 @@
       {% endif %}
       <form class="navbar-form navbar"  method="get">
         <div class="form-group">
-          <input type="text" name="q" value="{{ q }}" />
+          <input placeholder="유저 아이디 검색" type="text" name="q" value="{{ q }}" />
           <input type="submit" value="검색" class="btn btn-primary"/>
         </div>
       </form>
