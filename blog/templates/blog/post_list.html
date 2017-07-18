@@ -20,7 +20,7 @@
       {% for posts in post %}
       <tr style="width: 100px;">
           <th class="text-center" style="width: 66px;">{{ posts.id }}</th>
-          <th class="text-center"><a href="{% url "blog:post_detail" pk=posts.pk %}">{{ posts.title }}</a>{{ posts.comments.count }}</th>
+          <th class="text-center"><a href="{% url "blog:post_detail" pk=posts.pk %}">{{ posts.title }}</a></th>
           <th class="text-center" style="width: 100px;"><small>{{ posts.author }}</small></th>
       </tr>
       {% endfor %}
