@@ -11,10 +11,10 @@
     </tr>
   </thead>
   <tbody>
-    {% for comment in comment_list %}
+    {%for comments in comment %}
     <tr>
-      <th>{{comment.author}}</th>
-      <th>{{comment.message}}</th>
+      <th>{{comments.author}}</th>
+      <th>{{comments.message}}</th>
     </tr>
     {% endfor %}
 

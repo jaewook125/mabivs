@@ -65,7 +65,7 @@
         margin-left: 10px;
         margin-right: 10px;">
       <h3>댓글목록</h3>
-      {%for comments in comment %}
+      {% for comments in post.comment_set.all %}
       <div style="background-color: #DCDCDC;">
         <table style="margin-bottom: 5px;" class="table table-striped">
           <tbody>
@@ -75,7 +75,7 @@
               </li>
               <li style="overflow: hidden;"><strong><h4>{{comments.message}}
                 <a style="float: right;" class="btn btn-default" href="{% url "blog:comment_delete" pk=comments.pk %}">
-              <span class="glyphicon glyphicon-trash"> 삭제</span></h4></strong></a></li>
+              <span class="glyphicon glyphicon-trash"> 댓글 삭제</span></h4></strong></a></li>
 
               <li style="overflow: hidden;"><small>{{comments.updated_at| date:'Y-m-d g:i a'}}</small></li>
 
@@ -84,7 +84,7 @@
         </table>
       </div>
 
-      {%endfor%}
+      {% endfor %}
 
       {% if comment.has_other_pages %}
         <ul class="pagination">
