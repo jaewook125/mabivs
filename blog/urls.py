@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^notice/$', views.notice_list, name="notice_list"),
     url(r'^notice/(?P<pk>\d+)/$', views.notice_view, name="notice_view"),
 
+    url(r'^comment/(?P<pk>\d+)/delete/$', views.comment_delete, name='comment_delete'),
     # url(r'^comments/$', views.comment_list, name='comment_list'),
 ]

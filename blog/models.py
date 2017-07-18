@@ -49,11 +49,11 @@ class Notice(models.Model):
         return self.title
 
 
-# class Comment(models.Model):
-#         post = models.ForeignKey(Post)
-#         # 이 코멘트는 Post 모델에 대해서 1:N의 관계를 가진다
-#         # post_id 라는 필드가 생김 외래키의 영향
-#         author = models.CharField(max_length=20)
-#         message = models.TextField()
-#         created_at = models.DateTimeField(auto_now_add=True)
-#         updated_at = models.DateTimeField(auto_now=True)
+class Comment(models.Model):
+    post = models.ForeignKey(Post)
+    # 이 코멘트는 Post 모델에 대해서 1:N의 관계를 가진다
+    # post_id 라는 필드가 생김 외래키의 영향
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True)
+    message = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

@@ -35,7 +35,6 @@
         margin-left: 10px;
         margin-right: 10px;
         ">
-
         <a style="float: right;" class="btn btn-default" href="{% url "blog:post_delete" pk=post.pk %}">
         <span class="glyphicon glyphicon-trash"> 삭제</span></a>
         <a style="float: right;" class="btn btn-default" href="{% url "blog:post_edit" pk=post.pk %}">
@@ -43,15 +42,77 @@
 
       </div>
       <hr>
+
       <div class="row"  style="
         margin-left: 10px;
         margin-right: 10px;">
+      <h3>댓글 작성</h3>
+        <form action="" class="form-horizontal" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="message">내용 : </label>
+            <input type="text" name="message" maxlength="200" required="" id="id_message">
+            <input type="submit" />
+          </div>
 
+        </form>
 
       </div>
       </ul>
+
       <hr>
+      <div class="row"  style="
+        margin-left: 10px;
+        margin-right: 10px;">
+      <h3>댓글목록</h3>
+      {%for comments in comment %}
+      <div style="background-color: #DCDCDC;">
+        <table style="margin-bottom: 5px;" class="table table-striped">
+          <tbody>
+            <ul style="padding-left: 0px;">
+              <li style="overflow: hidden;">
+                <small>{{comments.author}}</small>
+              </li>
+              <li style="overflow: hidden;"><strong><h4>{{comments.message}}
+                <a style="float: right;" class="btn btn-default" href="{% url "blog:comment_delete" pk=comments.pk %}">
+              <span class="glyphicon glyphicon-trash"> 삭제</span></h4></strong></a></li>
 
+              <li style="overflow: hidden;"><small>{{comments.updated_at| date:'Y-m-d g:i a'}}</small></li>
 
+          </ul>
+            <tbody>
+        </table>
+      </div>
+
+      {%endfor%}
+
+      {% if comment.has_other_pages %}
+        <ul class="pagination">
+          {% if comment.has_previous %}
+            <li><a href="?page={{ comment.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in comment.paginator.page_range %}
+            {% if comment.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if comment.has_next %}
+            <li><a href="?page={{ comment.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+      </div>
 </div>
+<script>
+$(function() {
+  $('.form-group label').addClass('col-sm-2');
+  $('.form-group input, .form-group textarea').addClass('form-control');
+});
+</script>
 {% endblock %}

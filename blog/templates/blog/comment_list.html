@@ -1,12 +1,44 @@
-{% extends "blog/layout.html" %}
+{% extends "blog/base.html" %}
 
 {% block content %}
-<ul>
-{% for comment in comment_list %}
-<li>
-  {{comment}}
-  {{comment.post}}
-</li>
-{% endfor %}
-</ul>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>유저</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for comment in comment_list %}
+    <tr>
+      <th>{{comment.author}}</th>
+      <th>{{comment.message}}</th>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+{% if comment.has_other_pages %}
+  <ul class="pagination">
+    {% if comment.has_previous %}
+      <li><a href="?page={{ comment.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in comment.paginator.page_range %}
+      {% if comment.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if comment.has_next %}
+      <li><a href="?page={{ comment.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 {% endblock %}

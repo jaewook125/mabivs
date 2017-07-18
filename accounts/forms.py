@@ -67,7 +67,7 @@ class MypageForm(forms.Form):
          	('연금술','연금술'),
 		 	('올라운더','올라운더')]
 
-	userid = forms.CharField(required=False, widget=forms.TextInput(attrs={
+	userid = forms.CharField(required=True, widget=forms.TextInput(attrs={
 		'class':'form-control',
 		'placeholder': 'ex)MD은단비,LT놀즈,HP하프,WF감투',
 	}))
@@ -84,4 +84,4 @@ class MypageForm(forms.Form):
 		'class':'form-control',
 		'placeholder': 'pvp 초보입니다!',
 	}))
-	image = forms.ImageField()
+	image = forms.ImageField(required=False)

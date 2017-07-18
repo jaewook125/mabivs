@@ -1,7 +1,7 @@
-from blog.models import Post, Notice
+from blog.models import Post, Notice, Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -10,6 +10,7 @@ def prologue(request):
     return render(request, 'blog/prologue.html', {})
 
 
+@login_required
 def post_list(request):
     qs = Post.objects.all().order_by('-id').prefetch_related('tag_set')
 
@@ -35,10 +36,45 @@ def post_list(request):
         'post' : post,
     })
 
-
+@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    form = CommentForm(request.POST or None)
+    qs = Comment.objects.all().order_by('-id').select_related('post')
+
+    paginator = Paginator(qs, 5)
+    page = request.GET.get('page',1)
+    try:
+        comment = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        comment = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        comment = paginator.page(paginator.num_pages)
+
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post = post
+        comment.save()
+        messages.success(request, '댓글이 작성 됐습니다.')
+        return redirect(request.path)
+    return render(request, 'blog/post_detail.html', {
+                                    'post': post,
+                                    'form': form,
+                                    'comment_list':qs,
+                                    'comment':comment,
+                                    })
+
+@login_required
+def comment_delete(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    if comment.author != request.user:
+        return redirect(comment)
+    comment.delete()
+    messages.success(request, '댓글을 삭제 했습니다.')
+    return render(request, 'blog/comment_delete.html', {'comment': comment})
 
 @login_required
 def post_new(request):
@@ -80,6 +116,7 @@ def post_delete(request, pk):
     messages.success(request, '포스팅을 삭제 했습니다.')
     return render(request, 'blog/post_delete.html', {'post': post})
 
+
 def notice_list(request):
     qs = Notice.objects.all().order_by('-id')
 
@@ -103,13 +140,26 @@ def notice_list(request):
         'notice' : notice,
     })
 
+
 def notice_view(request, pk):
     notice = get_object_or_404(Notice, pk=pk)
     return render(request, 'blog/notice_view.html', {'notice': notice})
 
 
 # def comment_list(request):
-#     comment_list = Comment.objects.all().select_related('post')
-#     return render(request, 'blog/comment_list.html',{
-#         'comment_list':comment_list,
+#     qs = Comment.objects.all().select_related('post')
+#
+#     paginator = Paginator(qs, 5)
+#     page = request.GET.get('page',1)
+#     try:
+#         comments = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer, deliver first page.
+#         comments = paginator.page(1)
+#     except EmptyPage:
+#         # If page is out of range (e.g. 9999), deliver last page of results.
+#         comments = paginator.page(paginator.num_pages)
+#     return render(request, 'blog/post_detail.html',{
+#         'comment_list':qs,
+#         'comments':comments,
 #     })

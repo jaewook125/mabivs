@@ -32,8 +32,9 @@ class Profile(models.Model):
     race = models.CharField(max_length=4, choices=RACE_CHOICES)
     skill = models.CharField(max_length=50, choices=SKILL_CHOICES)
     context = models.CharField(max_length=300, blank=True)
-    image = ProcessedImageField(blank=True,
+    image = ProcessedImageField(
             processors=[Thumbnail(350, 350)],
             upload_to='userimage/%Y/%m/%d',
             format='JPEG',
-            options={'quality': 80})
+            options={'quality': 80},
+            blank=True)

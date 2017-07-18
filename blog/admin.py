@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post, Tag, Notice
+from blog.models import Post, Tag, Notice, Comment
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -14,16 +14,19 @@ class PostAdmin(admin.ModelAdmin):
     def tag_list(request,post):
         return ', '.join(tag.name for tag in post.tag_set.all()) #list comprehension 문법?
 
-# @admin.register(Comment)
-# class CommentAdmin(admin.ModelAdmin):
-#     list_display = ['id', 'author','post_content_len']
-#
-#     def post_content_len(self,comment):
-#         return '{}글자'.format(len(comment.post.content))
-#
-#     def get_queryset(self,request):
-#         qs = super().get_queryset(request)
-#         return qs.select_related('post')
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'author','post_content_len','comment_content_len']
+
+    def post_content_len(self,comment):
+        return '{}글자'.format(len(comment.post.content))
+
+    def comment_content_len(self,comment):
+        return '{}글자'.format(len(comment.message))
+
+    def get_queryset(self,request):
+        qs = super().get_queryset(request)
+        return qs.select_related('post')
 
 
 @admin.register(Notice)
