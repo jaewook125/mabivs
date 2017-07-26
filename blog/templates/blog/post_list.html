@@ -22,7 +22,7 @@
       <tr style="width: 100px;">
           <th class="text-center" style="width: 66px;">{{ posts.id }}</th>
           <th class="text-center"><a href="{% url "blog:post_detail" pk=posts.pk %}">{{ posts.title }} </a>[{{ posts.comment_set.count }}]</th>
-          <th class="text-center" style="width: 100px;"><small>{{ posts.author.profile.userid }}</small></th>
+          <th class="text-center" style="width: 100px;"><span class="label label-success">{{ posts.author.profile.userid }}</span></th>
       </tr>
       {% endfor %}
     </tbody>
