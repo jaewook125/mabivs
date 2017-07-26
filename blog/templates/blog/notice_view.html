@@ -15,7 +15,7 @@
                               overflow: hidden;">
                      {{ notice.created_at| date:'Y-m-d g:i a' }}
                    </li>
-                 <li>작성자 : {{ notice.author }}</li>
+                 <li>작성자 : {{ notice.author.profile.userid }}</li>
                  <li>제목 : {{ notice.title }}</li>
                  </ul>
       </div>

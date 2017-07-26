@@ -6,7 +6,7 @@ from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(max_length=100)
-    content = forms.CharField(widget=SummernoteWidget(attrs={'width': '100%'} ))
+    content = forms.CharField(widget=SummernoteWidget(attrs={'width': '100%', 'src':'img-responsive img-rounded'} ))
 
     class Meta:
         model = Post

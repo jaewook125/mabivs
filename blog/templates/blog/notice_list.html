@@ -23,7 +23,7 @@
       <tr style="width: 60px;">
           <th style="width: 66px;">{{ notices.id }}</th>
           <th class="text-center"><a href="{% url "blog:notice_view" pk=notices.pk %}">{{ notices.title }}</a></th>
-          <th style="width: 60px;">{{ notices.author }}</th>
+          <th style="width: 60px;">{{ notices.author.profile.userid }}</th>
           <th style="width: 100px;">{{ notices.created_at|date:"Y-m-d"  }}</th>
       </tr>
 
