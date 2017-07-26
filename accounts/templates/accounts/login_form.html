@@ -1,10 +1,13 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
-{% if request.user == user.authenticated %}
-이미 로그인 하셨습니다
+{% if request.user.is_authenticated %}
+로그인함
+{% else %}
+
+
 {% endif %}
-{% if not user.authenticated %}
+{% if not request.user.is_authenticated %}
 <form action="" method="post" class="form-horizontal">
 <div class="text-center">
 <legend>로그인</legend>

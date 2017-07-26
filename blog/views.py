@@ -1,6 +1,7 @@
 from blog.models import Post, Notice, Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.http import HttpResponse
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -55,7 +56,10 @@ def post_detail(request, pk):
 
 @login_required
 def comment_delete(request, pk):
-    comment = Comment.objects.get(pk=pk)
+    comment = get_object_or_404(Comment, pk=pk)
+    html = "<html><body>다른 사용자의 덧글입니다.</body></html>"
+    if comment.author != request.user:
+        return HttpResponse(html)
     comment.delete()
     messages.success(request, '댓글을 삭제 했습니다.')
     return render(request, 'blog/comment_delete.html', {'comment': comment})

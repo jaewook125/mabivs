@@ -2,6 +2,9 @@
 {% load imagekit %}
 
 {% block content %}
+<link rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
 <div class="container">
     <div class="row" style="
       margin-left: 10px;
@@ -50,9 +53,9 @@
         <form action="" class="form-horizontal" method="post">
           {% csrf_token %}
           <div class="form-group">
-            <label for="message">내용 : </label>
+            <label for="message">내용</label>
             <input type="text" name="message" maxlength="200" required="" id="id_message">
-            <input type="submit" />
+            <button class="btn btn-large btn-block btn-primary" type="submit">작성</button>
           </div>
 
         </form>
@@ -73,11 +76,13 @@
               <li style="overflow: hidden;">
                 <small>{{comments.author}}</small>
               </li>
-              <li style="overflow: hidden;"><strong><h4>{{comments.message}}
-                <a style="float: right;" class="btn btn-default" href="{% url "blog:comment_delete" pk=comments.pk %}">
-              <span class="glyphicon glyphicon-trash"> 댓글 삭제</span></h4></strong></a></li>
-
+              <strong><h4>{{comments.message}}</h4></strong>
               <li style="overflow: hidden;"><small>{{comments.updated_at| date:'Y-m-d g:i a'}}</small></li>
+              {% if request.user == comments.author %}
+              <li style="overflow: hidden;"><strong>
+                <a style="float: right;" class="btn btn-default" href="{% url "blog:comment_delete" pk=comments.pk %}">
+              <span class="glyphicon glyphicon-trash"> 댓글삭제</span></strong></a></li>
+              {% endif %}
 
           </ul>
             <tbody>
