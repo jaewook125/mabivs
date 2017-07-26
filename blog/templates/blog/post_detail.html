@@ -27,7 +27,7 @@
         <div class="row" style="
           margin-left: 10px;
           margin-right: 10px;">
-          <p>{{ post.content }}</p>
+          <p>{{ post.content|safe }}</p>
           {% if post.image %}
           <img class="img-responsive img-rounded" src="{{post.image.url}}" style="max_length: 100%;" />
           {% endif %}
@@ -74,7 +74,7 @@
           <tbody>
             <ul style="padding-left: 0px;">
               <li style="overflow: hidden;">
-                <small>{{comments.author}}</small>
+                <small>{{comments.author.profile.userid}}</small>
               </li>
               <strong><h4>{{comments.message}}</h4></strong>
               <li style="overflow: hidden;"><small>{{comments.updated_at| date:'Y-m-d g:i a'}}</small></li>

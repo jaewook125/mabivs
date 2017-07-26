@@ -69,14 +69,14 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save(commit=False)
+            post = Post(**form.cleaned_data)
             post.author = request.user
             post.save()
             messages.success(request, '새 포스팅을 저장했습니다.')
             return redirect(post)
     else:
         form = PostForm()
-    return render(request, 'blog/post_edit.html', {'form': form})
+    return render(request, 'blog/post_edit.html', {'form': form,})
 
 @login_required
 def post_edit(request, pk):
@@ -86,7 +86,7 @@ def post_edit(request, pk):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
+            post = Post(**form.cleaned_data)
             post.author = request.user
             post.save()
             messages.success(request, '포스팅을 수정 했습니다.')

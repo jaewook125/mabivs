@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'disqus',
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
+    'django_summernote',
 ]
 
 DISQUS_WEBSITE_SHORTNAME = 'mabipvp-com'    #추가

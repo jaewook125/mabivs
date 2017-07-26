@@ -1,18 +1,16 @@
 from django import forms
+from django.forms import ModelForm
 from .models import Post,Comment
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+
 
 class PostForm(forms.ModelForm):
+    title = forms.CharField(max_length=100)
+    content = forms.CharField(widget=SummernoteWidget(attrs={'width': '100%'} ))
 
-    # title = forms.CharField(required=False, widget=forms.TextInput(attrs={
-	# 	'class':'form-control',
-	# }))
-    # content = forms.CharField(required=False, widget=forms.Textarea(attrs={
-	# 	'class':'form-control',
-	# }))
-    # image = forms.ImageField(required=False)
     class Meta:
         model = Post
-        fields = ('title','content','image',)
+        fields = ('title','content',)
 
 class CommentForm(forms.ModelForm):
     class Meta:
