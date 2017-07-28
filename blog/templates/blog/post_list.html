@@ -2,19 +2,27 @@
 
 
 {% block content %}
-<div id="back" class="container">
+<div class="container">
   <div class="row" style="
     margin-left: 10px;
     margin-right: 10px;">
+    <div style="" class="hidden-xs col-md-3">
+      <embed height="500" width="90%" src="http://www.gagalive.kr/livechat1.swf?chatroom=~~~new_mabipvp"></embed>
+    </div>
+    <div class="col-md-9">
     <table class="table table-hover">
       <div class="text-center">
         <legend style="background-color: #3b5998; color: #FFFFFF;">게시판</legend>
       </div>
+
+
       {% if user.is_authenticated %}
+
       <tr>
         <th class="text-center">번호</th>
         <th class="text-center">제목</th>
         <th class="text-center">작성자</th>
+        <th class="text-center">조회수</th>
       </tr>
     </thead>
     <tbody>
@@ -23,11 +31,13 @@
           <th class="text-center" style="width: 66px;">{{ posts.id }}</th>
           <th class="text-center"><a href="{% url "blog:post_detail" pk=posts.pk %}">{{ posts.title }} </a>[{{ posts.comment_set.count }}]</th>
           <th class="text-center" style="width: 100px;"><span class="label label-success">{{ posts.author.profile.userid }}</span></th>
+          <th class="text-center" style="width: 66px;">{{ posts.count }}</th>
       </tr>
+      </div>
       {% endfor %}
     </tbody>
     </table>
-    <hr>
+    <hr/>
     <a style="float: right; background-color: #3b5998;" class="btn btn-default" href="{% url "blog:post_new" %}">
     <span style="color: #FFFFFF;" class="glyphicon glyphicon-pencil"> 작성</span></a>
     <div class="text-center">
@@ -54,6 +64,7 @@
   </ul>
 {% endif %}
     </div>
+
     <div class="text-center">
     <form class="navbar-form navbar"  method="get">
       <div class="form-group">

@@ -42,6 +42,8 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     form = CommentForm(request.POST or None)
 
+    post.count += 1
+    post.save()
     if form.is_valid():
         comment = form.save(commit=False)
         comment.author = request.user

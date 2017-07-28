@@ -11,6 +11,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=100)
     content = models.TextField()
+    count = models.PositiveIntegerField()
     tags = models.CharField(max_length=100, blank=True)
     tag_set = models.ManyToManyField('Tag', blank=True)
     image = ProcessedImageField(blank=True,

@@ -5,7 +5,7 @@ from django_summernote.admin import SummernoteModelAdmin
 
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
-    list_display = ['id', 'author', 'title', 'tag_list' ,'content',
+    list_display = ['id', 'author', 'title', 'count' ,'tag_list' ,'content',
                     'image','created_at', 'updated_at']
 
 
